@@ -1,0 +1,33 @@
+from PyQt6 import QtWidgets
+from PyQt6.QtWidgets import *
+from PyQt6.uic import loadUi
+import sys
+import os
+
+class Gui(QDialog):
+    def __init__(self):
+        super(Gui,self).__init__()
+        
+        currentdir = os.path.dirname(os.path.abspath(__file__))
+        uipath = os.path.join(currentdir, "gui", "gui1.ui")
+        
+        loadUi(uipath,self)
+        self.btn_ok.clicked.connect(self.printdata)
+
+    def printdata(self):
+        input = self.le_input.text()
+
+        print("input : " + input)
+
+
+# Main App
+app = QApplication(sys.argv)
+widget = QtWidgets.QStackedWidget()
+
+gui = Gui()
+widget.addWidget(gui)
+
+widget.setFixedWidth(500)
+widget.setFixedHeight(400)
+widget.show()
+app.exec()
